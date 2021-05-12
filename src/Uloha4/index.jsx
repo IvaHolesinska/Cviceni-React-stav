@@ -1,5 +1,5 @@
-import React from 'react'
-import './carousel.css'
+import React, { useState } from 'react';
+import './carousel.css';
 
 // Zadání 1: Nachystej si adresy obrázků níže do pole.
 // Zadání 2: Přidej komponentě stavovou proměnnou, ve které bude index právě aktivního obrázku. Na začátku 0.
@@ -16,23 +16,41 @@ import './carousel.css'
 	https://source.unsplash.com/7go5UASxmDY/880x500
 	https://source.unsplash.com/YmATDIFsCmQ/880x500
 */
+const obrazky = [
+  'https://source.unsplash.com/WLUHO9A_xik/880x500',
+  'https://source.unsplash.com/DA1eGglMmlg/880x500',
+  'https://source.unsplash.com/kTxL6le0Wgk/880x500',
+  'https://source.unsplash.com/7go5UASxmDY/880x500',
+  'https://source.unsplash.com/YmATDIFsCmQ/880x500',
+];
 
 export const Uloha4 = () => {
-	return (
-		<div className="carousel">
-			<button className="carousel__predchozi" aria-label="předchozí">
-				←
-			</button>
-			<div className="carousel__media">
-				<img
-					className="carousel__image"
-					src="https://source.unsplash.com/7go5UASxmDY/880x500"
-					alt=""
-				/>
-			</div>
-			<button className="carousel__dalsi" aria-label="další">
-				→
-			</button>
-		</div>
-	)
-}
+  const [aktivni, setAktivni] = useState(0);
+  return (
+    <div className="carousel">
+      <button
+        onClick={() => {
+          setAktivni(aktivni - 1);
+        }}
+        className="carousel__predchozi"
+        aria-label="předchozí"
+        disabled={aktivni < 1}
+      >
+        ←
+      </button>
+      <div className="carousel__media">
+        <img className="carousel__image" src={`${obrazky[aktivni]}`} alt="" />
+      </div>
+      <button
+        onClick={() => {
+          setAktivni(aktivni + 1);
+        }}
+        className="carousel__dalsi"
+        aria-label="další"
+        disabled={aktivni >= 4}
+      >
+        →
+      </button>
+    </div>
+  );
+};
